@@ -1,0 +1,26 @@
+@float-panel-cls: ~'@{prefix}-float-panel';
+
+page {
+  --float-panel-layer: 899;
+  --float-panel-vertical-padding: var(--size-xl);
+  --float-panel-horizontal-padding: var(--size-xl);
+  --float-panel-background-color: var(--color-bgcolor, inherit);
+}
+
+.@{float-panel-cls} {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--float-panel-layer);
+  background-color: var(--float-panel-background-color);
+
+  &__content {
+    padding: 0 var(--float-panel-horizontal-padding);
+    padding-top: var(--float-panel-vertical-padding);
+  }
+
+  &__bottom {
+    padding-bottom: var(--float-panel-vertical-padding);
+  }
+}
