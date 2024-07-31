@@ -6,11 +6,13 @@ import {
   type CSSProperties
 } from 'vue'
 
+// Taro
+import { Button, type ITouchEvent } from '@tarojs/components'
+
 // Common
 import { shallowMerge, pick } from '@txjs/shared'
 
 // Component
-import { Button, type ITouchEvent } from '@tarojs/components'
 import { Icon, iconSharedProps } from '../icon'
 import { Loading } from '../loading'
 
@@ -80,10 +82,6 @@ export default defineComponent({
       )
 
       if (childVNode) {
-        if (props.type === 'ghost') {
-          return childVNode
-        }
-
         return (
           <view class={bem('text')}>
             {childVNode}
@@ -141,13 +139,13 @@ export default defineComponent({
           size,
           danger,
           {
+            link,
             block,
             round,
             square,
             loading,
             disabled,
             plain: link || plain,
-            link: link && type !== 'ghost',
             hairline: plain && border,
             unclickable: disabled || loading
           }
