@@ -1,0 +1,21 @@
+@list-cls: ~'@{prefix}-list';
+
+page {
+  --list-text-line: 100rpx;
+}
+
+.@{list-cls} {
+  &__loading,
+  &__finished-text,
+  &__error-text {
+    color: var(--color-text-light);
+    font-size: var(--size-md);
+    line-height: var(--list-text-line);
+    text-align: center;
+  }
+
+  &__placeholder {
+    height: var(--size-none);
+    pointer-events: none;
+  }
+}
