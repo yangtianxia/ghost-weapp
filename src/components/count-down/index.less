@@ -1,0 +1,13 @@
+@count-down-cls: ~"@{prefix}-count-down";
+
+page {
+  --count-down-text-color: var(--color-text);
+  --count-down-size: var(--size-md);
+  --count-down-line: var(--line-md);
+}
+
+.@{count-down-cls} {
+  color: var(--count-down-text-color);
+  font-size: var(--count-down-size);
+  line-height: var(--count-down-line);
+}
