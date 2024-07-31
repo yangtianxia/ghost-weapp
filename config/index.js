@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
   projectName: pkg.name,
-  date: '2023-12-19',
+  date: '2024-07-31',
   sourceRoot: 'src',
   outputRoot: `dist/${process.env.TARO_ENV}`,
   framework: 'vue3',
@@ -24,6 +24,36 @@ const config = {
     '@': resolve('src')
   },
   mini: {
+    postcss: {
+      pxtransform: {
+        enable: true,
+        config: {}
+      },
+      url: {
+        enable: true,
+        config: {
+          limit: 1024
+        }
+      },
+      cssModules: {
+        enable: true,
+        config: {
+          auto: true,
+          namingPattern: 'module',
+          generateScopedName: isDev
+            ? '[local]_[hash:base64:8]'
+            : '[hash:base64:6]'
+        }
+      }
+    },
+    lessLoaderOption: {
+      lessOptions: {
+        javascriptEnabled: true
+      }
+    },
+    optimizeMainPackage: {
+      enable: true
+    },
     webpackChain: (chain) => {
       const rule = [
         {
@@ -57,36 +87,6 @@ const config = {
           return args
         })
         .end()
-    },
-    postcss: {
-      pxtransform: {
-        enable: true,
-        config: {}
-      },
-      url: {
-        enable: true,
-        config: {
-          limit: 1024
-        }
-      },
-      cssModules: {
-        enable: true,
-        config: {
-          auto: true,
-          namingPattern: 'module',
-          generateScopedName: isDev
-            ? '[local]_[hash:base64:8]'
-            : '[hash:base64:6]'
-        }
-      }
-    },
-    lessLoaderOption: {
-      lessOptions: {
-        javascriptEnabled: true
-      }
-    },
-    optimizeMainPackage: {
-      enable: true
     }
   },
   plugins: [
