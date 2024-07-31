@@ -1,0 +1,102 @@
+@import url('@/assets/style/mixins/hairline.less');
+
+@action-sheet-cls: ~"@{prefix}-action-sheet";
+
+page {
+  --action-sheet-max-height: 80%;
+  --action-sheet-description-color: var(--color-text-light);
+  --action-sheet-description-size: var(--size-md);
+  --action-sheet-description-line: var(--line-md);
+  --action-sheet-option-color: var(--color-text);
+  --action-sheet-option-line: var(--line-md);
+  --action-sheet-option-label-color: var(--color-text-light);
+  --action-sheet-option-label-size: var(--size-sm);
+  --action-sheet-option-label-line: var(--line-md);
+  --action-sheet-gap-height: var(--size-xs);
+  --action-sheet-gap-background: var(--color-bgcolor);
+  --action-sheet-cancel-color: var(--color-text);
+}
+
+.@{action-sheet-cls} {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: var(--action-sheet-max-height);
+  color: var(--action-sheet-option-color);
+
+  &__description {
+    position: relative;
+    flex-shrink: 0;
+    padding: var(--size-md) var(--size-lg);
+    color: var(--action-sheet-description-color);
+    font-size: var(--action-sheet-description-size);
+    line-height: var(--action-sheet-description-line);
+    text-align: center;
+
+    &:after {
+      .hairline-bottom();
+    }
+  }
+
+  &__content {
+    flex: 1 auto;
+    min-height: 0;
+  }
+
+  &__option,
+  &__cancel {
+    height: auto;
+    border: none;
+    border-radius: 0;
+    padding: var(--size-md) var(--size-lg);
+
+    &:before {
+      content: none;
+    }
+
+    &:active {
+      background-color: var(--color-active);
+    }
+  }
+
+  &__option {
+    line-height: var(--action-sheet-option-line);
+
+    &-container {
+      position: relative;
+
+      & + & {
+        &:after {
+          .hairline-top();
+        }
+      }
+    }
+
+    &--unclickable:active {
+      background: none;
+    }
+
+    &-label {
+      margin-top: var(--size-1);
+      color: var(--action-sheet-option-label-color);
+      font-size: var(--action-sheet-option-label-size);
+      line-height: var(--action-sheet-option-label-line);
+    }
+
+    .@{prefix}-loading {
+      --loading-spinner-size: var(--size-xxl);
+    }
+  }
+
+  &__gap {
+    display: block;
+    padding-top: var(--action-sheet-gap-height);
+    background-color: var(--action-sheet-gap-background);
+  }
+
+  &__cancel {
+    flex-shrink: 0;
+    color: var(--action-sheet-cancel-color);
+  }
+
+}
