@@ -1,0 +1,8 @@
+{
+  "cssVariables.lookupFiles": [
+    "**/*.css",
+    "**/*.less",
+    "dist/pollen/vars.css"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
