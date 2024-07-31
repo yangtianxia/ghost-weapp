@@ -33,29 +33,4 @@ if (process.env.TARO_ENV === 'alipay') {
   }
 }
 
-if (process.env.NODE_ENV === 'development') {
-  config.subpackages!.push({
-    root: 'examples',
-    pages: [
-      'button/index',
-      'cascader/index',
-      'grid/index',
-      'cell/index',
-      'checkbox/index',
-      'radio/index',
-      'result/index',
-      'form/index',
-      'alert/index',
-      'list/index',
-      'float-panel/index',
-      'action-sheet/index',
-      'count-down/index',
-      'range-date-picker/index',
-      'popup/index',
-      'tabs/index',
-      'toast/index'
-    ]
-  })
-}
-
 export default defineAppConfig(config)
