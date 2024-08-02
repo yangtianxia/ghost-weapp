@@ -704,8 +704,10 @@ export default defineComponent({
             'isLink',
             'clickable',
             'arrowDirection',
+            'label',
             'onTap'
           ])}
+          shrink={shrink}
           v-slots={{
             icon: LeftIcon && titleAlign !== 'top' ? () => LeftIcon : null,
             title: renderTitle,
@@ -722,7 +724,6 @@ export default defineComponent({
             props.labelClass
           ]}
           valueClass={[bem('value'), props.valueClass]}
-          shrink={shrink}
           titleStyle={titleAlign !== 'top' ? titleStyle.value : undefined}
         />
       )
