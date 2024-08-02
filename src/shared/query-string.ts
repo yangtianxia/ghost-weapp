@@ -30,18 +30,22 @@ export function isAbsolutePath(input: string) {
   return /^\/(?:[^/]+\/)*[^/]+$/i.test(input)
 }
 
-export function pathParser(input: string) {
+export function pathParse(input: string) {
   let path = ''
   let params = {} as URLParams
 
-  input = splicing(input, '/', !input.startsWith('/'))
+  if (input.indexOf('/') === -1) {
+    path = input
+  } else {
+    input = splicing(input, '/', !input.startsWith('/'))
+  }
 
   if (isAbsolutePath(input)) {
     const result = cutURL(input)
 
     if (result) {
       path = result.extra
-      params = queryParser(
+      params = queryParse(
         result.value
       )
     } else {
@@ -52,7 +56,7 @@ export function pathParser(input: string) {
   return { path, params }
 }
 
-export function queryParser(input?: string | URLParams) {
+export function queryParse(input?: string | URLParams) {
   if (isPlainObject(input)) {
     return input
   }
