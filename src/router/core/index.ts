@@ -3,7 +3,7 @@ import { shallowMerge, callInterceptor, interceptorAll, noop, type Interceptor }
 import { makeArray } from '@txjs/make'
 import { isFunction, isNil, isPlainObject } from '@txjs/bool'
 import { useAppConfig } from '@/hooks/app-config'
-import { pathParser, queryParser, queryStringify, type URLParams } from '@/shared/query-string'
+import { pathParse, queryParse, queryStringify, type URLParams } from '@/shared/query-string'
 import type { PageRoute } from '../types'
 import { ERROR_ROUTE } from '../routes/basic'
 import createRoute from './route'
@@ -57,11 +57,11 @@ class createRouter<T extends readonly any[]> extends createRoute<T> {
         query = undefined
       }
 
-      const result = pathParser(path)
+      const result = pathParse(path)
       const route = this.getRoute(result.path) || ERROR_ROUTE
 
       // 合并路由参数
-      route.query = shallowMerge({}, result.params, queryParser(query))
+      route.query = shallowMerge({}, result.params, queryParse(query))
 
       // 跳转之前拦截
       callInterceptor(interceptorAll, {

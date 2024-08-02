@@ -1,7 +1,7 @@
 import type { PageRoute } from '../types'
 import { shallowMerge } from '@txjs/shared'
 import { isNil, isArray } from '@txjs/bool'
-import { pathParser } from '@/shared/query-string'
+import { pathParse } from '@/shared/query-string'
 import { isLogin } from '@/shared/auth'
 
 class createRoute<T extends readonly any[]> {
@@ -46,8 +46,7 @@ class createRoute<T extends readonly any[]> {
     if (value in this.#names) {
       route = this.#names[value]
     } else {
-      value = pathParser(value).path
-
+      value = pathParse(value).path
       if (value in this.#paths) {
         route = this.#paths[value]
       }
