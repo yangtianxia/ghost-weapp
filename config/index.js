@@ -55,13 +55,11 @@ const config = {
       enable: true
     },
     webpackChain: (chain) => {
-      const rule = [
-        {
-          test: /\.mjs$/,
-          include: [/pinia/],
-          loader: 'babel-loader'
-        }
-      ]
+      const rule = [{
+        test: /\.mjs$/,
+        include: [/pinia/],
+        loader: 'babel-loader'
+      }]
 
       if (isProd) {
         rule.push({
