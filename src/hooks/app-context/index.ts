@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { isString } from '@txjs/bool'
+import { isString, isNil } from '@txjs/bool'
 import type { URLParams } from '@/shared/query-string'
 import type { ResultOptions, ResultStatus } from '@/components/result'
 import { createInjectionKey } from '@/components/_utils/basic'
@@ -53,7 +53,7 @@ export const useAppContext = (option?: AppContextOption) => {
   }
 
   const beforeEnter = (callback?: UnknownCallback<URLParams>) => {
-    const result = currentPage.validator()
+    const result = currentPage.validator?.()
 
     if (result) {
       state.status = result
@@ -89,6 +89,9 @@ export const useAppContext = (option?: AppContextOption) => {
     },
     get status() {
       return state.status
+    },
+    get hasError() {
+      return isNil(state.status)
     }
   }
 }
