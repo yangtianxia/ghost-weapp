@@ -1,7 +1,7 @@
 import { ref, type Ref } from 'vue'
 
-import { getSelectorElement } from '../selector/utils'
-import type { SelectorElement } from '../selector/types'
+import { getElement } from '../rect/utils'
+import type { SelectorElement } from '../rect/types'
 
 type Direction = 'top' | 'left'
 
@@ -10,7 +10,7 @@ export const useScroller = (element: SelectorElement) => {
   const leftCollect = new Map<string, Ref<number>>()
 
   function scrollTop(top: number, scrollViewId?: SelectorElement) {
-    const selectorElement = getSelectorElement(scrollViewId || element)
+    const selectorElement = getElement(scrollViewId || element)
     const cache =  topCollect.get(selectorElement)
     if (cache) {
       if (cache.value === top) {
@@ -22,7 +22,7 @@ export const useScroller = (element: SelectorElement) => {
   }
 
   function scrollLeft(left: number, scrollViewId?: SelectorElement) {
-    const selectorElement = getSelectorElement(scrollViewId || element)
+    const selectorElement = getElement(scrollViewId || element)
     const cache =  leftCollect.get(selectorElement)
     if (cache) {
       if (cache.value === left) {
@@ -45,7 +45,7 @@ export const useScroller = (element: SelectorElement) => {
 
   function clearScrollTop(scrollViewId?: SelectorElement) {
     if (scrollViewId) {
-      const selectorElement = getSelectorElement(scrollViewId)
+      const selectorElement = getElement(scrollViewId)
       topCollect.delete(selectorElement)
     } else {
       topCollect.clear()
@@ -54,7 +54,7 @@ export const useScroller = (element: SelectorElement) => {
 
   function clearScrollLeft(scrollViewId?: SelectorElement) {
     if (scrollViewId) {
-      const selectorElement = getSelectorElement(scrollViewId)
+      const selectorElement = getElement(scrollViewId)
       leftCollect.delete(selectorElement)
     } else {
       leftCollect.clear()
