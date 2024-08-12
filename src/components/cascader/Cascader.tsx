@@ -1,5 +1,9 @@
 // Types
-import type { CascaderOption, CascaderTab, CascaderFieldNames } from './types'
+import type {
+  CascaderOption,
+  CascaderTab,
+  CascaderFieldNames
+} from './types'
 
 // Vue
 import {
@@ -18,17 +22,26 @@ import { ScrollView } from '@tarojs/components'
 import { shallowMerge, pick } from '@txjs/shared'
 import { makeArray } from '@txjs/make'
 import { isNil, notNil } from '@txjs/bool'
-import { useSelector, useSelectorAll } from '@/hooks/selector'
+import { useRect, useRectAll } from '@/hooks/rect'
 import { useScroller } from '@/hooks/scoller'
 import { useNextTick } from '@/hooks/next-tick'
 
 // Components
 import { Icon } from '../icon'
-import { Popup, popupSharedProps, popupSharedPropKeys } from '../popup'
+import {
+  Popup,
+  popupSharedProps,
+  popupSharedPropKeys
+} from '../popup'
 
 // Component utils
 import { useId } from '../_utils/id'
-import { truthProp, numericProp, makeStringProp, makeArrayProp } from '../_utils/props'
+import {
+  truthProp,
+  numericProp,
+  makeStringProp,
+  makeArrayProp
+} from '../_utils/props'
 
 const [name, bem] = BEM('cascader')
 
@@ -76,10 +89,10 @@ export default defineComponent({
     const id = useId()
     const scrollingHistory = new Map<number, number>()
     const scroller = useScroller(() => `${id}-${activeTab.value}`)
-    const menuRect = useSelector(() => `.${id}-${activeTab.value}`, {
+    const menuRect = useRect(() => `.${id}-${activeTab.value}`, {
       immediate: false
     })
-    const containerRect = useSelector(`#${id}-container`, {
+    const containerRect = useRect(`#${id}-container`, {
       useCache: true,
       immediate: false
     })
@@ -107,7 +120,7 @@ export default defineComponent({
       const { options, selected } = tabs.value[activeTab.value]
 
       if (selected) {
-        useSelectorAll([containerRect, menuRect], ([container, menu]) => {
+        useRectAll([containerRect, menuRect], ([container, menu]) => {
           const halfHeight = container.height * 0.5
           const optionHeight = menu.height / options.length
           const optionTop = optionHeight * options.findIndex(
