@@ -16,7 +16,7 @@ import { usePageScroll, useReady } from '@tarojs/taro'
 // Components
 import { shallowMerge } from '@txjs/shared'
 import { isFunction } from '@txjs/bool'
-import { useSelector, useSelectorAll, type SelectorElement } from '@/hooks/selector'
+import { useRect, useRectAll, type SelectorElement } from '@/hooks/rect'
 
 // Component utils
 import { useId } from '../_utils/id'
@@ -49,10 +49,10 @@ export default defineComponent({
 
   setup(props, { slots }) {
     const rootId = useId()
-    const rootRect = useSelector(`#${rootId}`, {
+    const rootRect = useRect(`#${rootId}`, {
       immediate: false
     })
-    const containerRect = useSelector(props.container!)
+    const containerRect = useRect(props.container!)
 
     const scrollTop = ref(0)
     const state = reactive({
@@ -117,7 +117,7 @@ export default defineComponent({
       scrollTop.value = top || scrollTop.value
 
       if (isFunction(props.container)) {
-        useSelectorAll([rootRect, containerRect], ([root, container]) => {
+        useRectAll([rootRect, containerRect], ([root, container]) => {
           if (offsetTop.value + root.height > container.top + container.height) {
             setDataAfterDiff({
               fixed: false,
