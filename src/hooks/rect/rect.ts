@@ -3,12 +3,12 @@ import { reactive, toRef, type Ref, onUnmounted } from 'vue'
 import { createSelectorQuery, useReady, useUnload } from '@tarojs/taro'
 import { shallowMerge } from '@txjs/shared'
 import { isString, notNil } from '@txjs/bool'
-import { makeDOMRect, getSelectorElement, type DOMRect } from './utils'
-import type { SelectorElement, SingleSelectorOptions } from './types'
+import { makeDOMRect, getElement, type DOMRect } from './utils'
+import type { SelectorElement, SingleRectOptions } from './types'
 
 type DOMRectKey = keyof DOMRect
 
-export type UseSelector = ReturnType<typeof useSelector>
+export type UseRect = ReturnType<typeof useRect>
 
 function getToRefs<K extends DOMRectKey>(rect: DOMRect, refs: K[]) {
   return refs.reduce(
@@ -19,9 +19,9 @@ function getToRefs<K extends DOMRectKey>(rect: DOMRect, refs: K[]) {
   )
 }
 
-export const useSelector = <K extends DOMRectKey>(
+export const useRect = <K extends DOMRectKey>(
   element: SelectorElement,
-  options?: SingleSelectorOptions<K>
+  options?: SingleRectOptions<K>
 ) => {
   const {
     target,
@@ -33,9 +33,7 @@ export const useSelector = <K extends DOMRectKey>(
     refs = []
   } = options || {}
   const hasObserve = notNil(observe) && isString(element)
-  const rect = reactive(
-    makeDOMRect()
-  )
+  const rect = reactive(makeDOMRect())
   let observer: MutationObserver
   let canRun = false
   let cached = false
@@ -49,7 +47,7 @@ export const useSelector = <K extends DOMRectKey>(
 
   const triggerBoundingClientRect = (callback?: UnknownCallback<DOMRect>) => {
     const query = createSelectorQuery()
-    const selectElement = getSelectorElement(element)
+    const selectElement = getElement(element)
 
     if (target) {
       query.in(target)
@@ -83,11 +81,9 @@ export const useSelector = <K extends DOMRectKey>(
   }
 
   const createObserver = () => {
-    const observeEle = isString(observe) ? observe : element as string
-
-    if (observeEle.startsWith('#')) {
-      const element = document.getElementById(observeEle.slice(1))
-
+    const observeEl = isString(observe) ? observe : element as string
+    if (observeEl.startsWith('#')) {
+      const element = document.getElementById(observeEl.slice(1))
       if (element) {
         const lazy = debounce(() => triggerBoundingClientRect(), 32, true)
         observer = new MutationObserver(lazy)

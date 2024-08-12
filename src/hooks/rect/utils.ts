@@ -12,6 +12,6 @@ export const makeDOMRect = () => ({
   height: 0
 })
 
-export const getSelectorElement = (element: SelectorElement) => {
+export const getElement = (element: SelectorElement) => {
   return isFunction(element) ? element() : element
 }
