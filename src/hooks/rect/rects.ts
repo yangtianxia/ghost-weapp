@@ -1,24 +1,23 @@
 import { shallowRef } from 'vue'
 import { createSelectorQuery, useReady } from '@tarojs/taro'
+import { getElement } from './utils'
+import type { SelectorElement, AllRectOptions } from './types'
 
-import { getSelectorElement } from './utils'
-import type { SelectorElement, AllSelectorOptions  } from './types'
+export type UseRects = ReturnType<typeof useRects>
 
-export type UseSelectors = ReturnType<typeof useSelectors>
-
-function getSelectElements(elements: SelectorElement[]) {
+function getElements(elements: SelectorElement[]) {
   return elements.reduce(
       (ret, ele) => {
-        ret.push(getSelectorElement(ele))
+        ret.push(getElement(ele))
         return ret
       }, [] as string[]
     )
     .join(',')
 }
 
-export const useSelectors = (
+export const useRects = (
   elements: SelectorElement[],
-  options?: AllSelectorOptions
+  options?: AllRectOptions
 ) => {
   const {
     target,
@@ -45,7 +44,7 @@ export const useSelectors = (
     }
 
     const query = createSelectorQuery()
-    const selectElement = getSelectElements(elements)
+    const selectElement = getElements(elements)
 
     if (target) {
       query.in(target)
