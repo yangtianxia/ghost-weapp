@@ -15,7 +15,7 @@ import { useReady, usePageScroll, useReachBottom } from '@tarojs/taro'
 import { shallowMerge } from '@txjs/shared'
 import { useSystemInfo } from '@/hooks/system-info'
 import { useNextTick } from '@/hooks/next-tick'
-import { useSelector } from '@/hooks/selector'
+import { useRect } from '@/hooks/rect'
 import { useExpose } from '@/hooks/expose'
 
 // Components
@@ -64,7 +64,7 @@ export default defineComponent({
   setup(props, { slots, emit }) {
     const placeholderId = useId()
     const cilentHeight = useSystemInfo().safeArea?.height ?? 0
-    const { bottom, boundingClientRect } = useSelector(`.${placeholderId}`, {
+    const { bottom, boundingClientRect } = useRect(`.${placeholderId}`, {
       refs: ['bottom']
     })
 
