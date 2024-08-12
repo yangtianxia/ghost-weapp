@@ -9,11 +9,11 @@ import './index.less'
 export const Tab = withInstall(_Tab)
 export const Tabs = withInstall(_Tabs, { Item: Tab })
 
-const tabInstall = Tab.install
+const tabsInstall = Tabs.install
 
-Tab.install = (app: App) => {
+Tabs.install = (app: App) => {
   Tab.install(app)
-  tabInstall(app)
+  tabsInstall(app)
 }
 
 export default Tab

@@ -20,7 +20,7 @@ import { ScrollView, type ITouchEvent } from '@tarojs/components'
 import { isNil, isArray } from '@txjs/bool'
 import { shallowMerge, callInterceptor, type Interceptor } from '@txjs/shared'
 import { useChildren } from '@/hooks/relation'
-import { useSelector } from '@/hooks/selector'
+import { useRect } from '@/hooks/rect'
 import { useScroller } from '@/hooks/scoller'
 
 // Component utils
@@ -92,7 +92,7 @@ export default defineComponent({
     const scroller = useScroller(scrollId)
     const collector = scroller.collector(scrollId, 'left')
     const { children, customChildren, linkChildren } = useChildren(TABS_KEY)
-    const { width, boundingClientRect } = useSelector(`#${contentId}`, {
+    const { width, boundingClientRect } = useRect(`#${contentId}`, {
       refs: ['width']
     })
 

@@ -12,7 +12,7 @@ import type { ITouchEvent } from '@tarojs/components'
 
 // Common
 import { isNil } from '@txjs/bool'
-import { useSelector } from '@/hooks/selector'
+import { useRect } from '@/hooks/rect'
 import { useExpose } from '@/hooks/expose'
 import { useParent } from '@/hooks/relation'
 
@@ -46,7 +46,7 @@ export default defineComponent({
 
     const rootId = useId()
     const instance = getCurrentInstance()
-    const { boundingClientRect, ...rect } = useSelector(`#${rootId}`, {
+    const { boundingClientRect, ...rect } = useRect(`#${rootId}`, {
       refs: ['width', 'height', 'left'],
       callback: () => parent.link(instance!, true)
     })
