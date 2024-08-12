@@ -2,7 +2,7 @@
 import { defineComponent, type ExtractPropTypes } from 'vue'
 
 // Common
-import { useSelector } from '@/hooks/selector'
+import { useRect } from '@/hooks/rect'
 
 // Components
 import { SafeArea } from '../safe-area'
@@ -31,7 +31,7 @@ export default defineComponent({
 
   setup(props, { slots, attrs }) {
     const contentId = useId()
-    const { height } = useSelector(`#${contentId}`, {
+    const { height } = useRect(`#${contentId}`, {
       refs: ['height'],
       observe: true
     })
