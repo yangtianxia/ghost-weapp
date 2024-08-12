@@ -88,9 +88,7 @@ export default defineComponent({
 
     const props = reactive({ ...originProps })
 
-    const opacity = ref(
-      props.scrollAnimation ? 0 : 1
-    )
+    const opacity = ref<number>()
 
     const textStyle = computed(() =>
       appStore.isDark ? getTextStyle(props.textStyle) : props.textStyle
@@ -104,14 +102,14 @@ export default defineComponent({
     const showLeftAction = computed(() =>
       !!slots.left || !!props.left || leftArrowVisible.value
     )
-    const currnetTextStyle = ref<string>(
+    const currentTextStyle = ref<string>(
       textStyle.value
     )
 
     const lazyOpacity = debounce((scrollTop: number) => {
       const visibility = parseFloat((scrollTop / height.value).toFixed(2))
       opacity.value = Math.min(visibility, 1)
-      currnetTextStyle.value = props.titleAnimation && (opacity.value > 0.1)
+      currentTextStyle.value = props.titleAnimation && (opacity.value > 0.1)
         ? getRGBA(textStyle.value, opacity.value)
         : textStyle.value
     }, 16, true)
@@ -127,7 +125,7 @@ export default defineComponent({
     }
 
     onAppLoaded((loading) => {
-      currnetTextStyle.value = loading
+      currentTextStyle.value = loading
         ? props.proloadTextStyle
         : textStyle.value
     })
@@ -138,9 +136,17 @@ export default defineComponent({
     )
 
     watch(
+      () => props.scrollAnimation,
+      (value) => {
+        opacity.value = value ? 0 : 1
+      },
+      { immediate: true }
+    )
+
+    watch(
       () => textStyle.value,
       (value) => {
-        currnetTextStyle.value = value
+        currentTextStyle.value = value
       }
     )
 
@@ -168,7 +174,7 @@ export default defineComponent({
               size={24}
               name={hasAccessRecord ? 'arrow-left' : 'wap-home-o'}
               class={bem('left-icon')}
-              color={currnetTextStyle.value}
+              color={currentTextStyle.value}
               onTap={goBack}
             />
           ) : null
@@ -192,7 +198,7 @@ export default defineComponent({
         const noLeft = !showLeftAction.value && !props.leftArrowNoPaddingLeft
         return (
           <view
-            style={{ color: currnetTextStyle.value }}
+            style={{ color: currentTextStyle.value }}
             class={[bem('title', { 'no-left': noLeft }), props.titleClass]}
           >
             {title}
