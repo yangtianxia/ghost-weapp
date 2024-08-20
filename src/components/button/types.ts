@@ -11,6 +11,6 @@ export type ButtonType =
   | 'danger'
   | 'warn'
   | 'success'
-  | 'cell'
+  | 'fit'
 
 export type ButtonIconPosition = 'left' | 'right'
