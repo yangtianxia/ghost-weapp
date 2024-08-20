@@ -8,13 +8,19 @@ const config = {
       pages: [
         'error/index'
       ]
+    },
+    {
+      root: 'examples',
+      pages: [
+        'waterfall-flow/index'
+      ]
     }
   ],
   window: {
     navigationStyle: 'custom',
-    backgroundColor: '@grey-2',
-    backgroundColorTop: '@grey-2',
-    backgroundColorBottom: '@grey-2',
+    backgroundColor: '@grey-1',
+    backgroundColorTop: '@grey-1',
+    backgroundColorBottom: '@grey-1',
     navigationBarTextStyle: '@navigation' as unknown,
     navigationBarBackgroundColor: '@section',
     navigationBarTitleText: process.env.PROJECT_NAME
