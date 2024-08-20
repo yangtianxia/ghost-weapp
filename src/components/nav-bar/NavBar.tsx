@@ -26,7 +26,7 @@ import { useSystemInfo } from '@/hooks/system-info'
 import { NAV_BAR_CONTEXT_KEY } from '@/hooks/nav-bar-context'
 import { useExpose } from '@/hooks/expose'
 import { useParent } from '@/hooks/relation/parent'
-import { getRGBA } from '@/shared/utils'
+import { getCSSVar } from '@/shared/utils'
 
 // Components
 import Icon from '../icon'
@@ -110,7 +110,7 @@ export default defineComponent({
       const visibility = parseFloat((scrollTop / height.value).toFixed(2))
       opacity.value = Math.min(visibility, 1)
       currentTextStyle.value = props.titleAnimation && (opacity.value > 0.1)
-        ? getRGBA(textStyle.value, opacity.value)
+        ? getCSSVar(textStyle.value, opacity.value)
         : textStyle.value
     }, 16, true)
 
@@ -168,24 +168,22 @@ export default defineComponent({
           style.paddingLeft = addUnit(0)
         }
 
-        const left = createVNode(slots.left || props.left, {
-          render: () => leftArrowVisible.value ? (
-            <Icon
-              size={24}
-              name={hasAccessRecord ? 'arrow-left' : 'wap-home-o'}
-              class={bem('left-icon')}
-              color={currentTextStyle.value}
-              onTap={goBack}
-            />
-          ) : null
-        })
+        const left = createVNode(slots.left || props.left)
 
         return (
           <view
             class={[bem('left'), props.leftClass]}
             style={style}
           >
-            {left}
+            {left ?? (
+              <Icon
+                size={24}
+                name={hasAccessRecord ? 'arrow-left' : 'wap-home-o'}
+                class={bem('left-icon')}
+                color={currentTextStyle.value}
+                onTap={goBack}
+              />
+            )}
           </view>
         )
       }
