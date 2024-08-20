@@ -1,0 +1,32 @@
+{
+  "basic code": {
+    "scope": "typescriptreact",
+    "prefix": "tx-page",
+    "body": [
+      "// Vue",
+      "import { defineComponent } from 'vue'",
+      "",
+      "// Components",
+      "import { App } from '@/components/app'",
+      "",
+      "// Style",
+      "import less from './index.module.less'",
+      "",
+      "const [name, bem] = BEM('$1', less)",
+      "",
+      "export default defineComponent({",
+      "  name,",
+      "",
+      "  setup() {",
+      "    return () => (",
+      "      <App>",
+      "        <App.Body>",
+      "          <view class={bem()}></view>",
+      "        </App.Body>",
+      "      </App>",
+      "    )",
+      "  }",
+      "})",
+    ]
+  }
+}
