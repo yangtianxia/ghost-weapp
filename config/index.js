@@ -97,7 +97,6 @@ const config = {
     [resolve('packages/taro-plugin-config'), {
       sourceRoot: 'public',
       global: {
-        projectname: pkg.name,
         setting: {
           es6: false,
           minified: false,

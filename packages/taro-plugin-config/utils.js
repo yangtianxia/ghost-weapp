@@ -8,7 +8,8 @@ const outputFileNameMap = {
 }
 
 const globalFieldMap = {
-  APP_ID: 'appid'
+  APP_ID: 'appid',
+  PROJECT_NAME: 'projectname'
 }
 
 module.exports = {

@@ -1,5 +1,6 @@
 const dotenv = require('dotenv')
 const extend = require('extend')
+const pkg = require('../../package.json')
 const { shallowMerge } = require('@txjs/shared')
 const { notNil, isPlainObject } = require('@txjs/bool')
 const { resolve } = require('./basic')
@@ -9,6 +10,7 @@ class EnvUtils {
   __PREFIX = 'tx'
   __BASE_URL = ''
   __DIRECTORY = '.env'
+  __PROJECT_NAME = pkg.name
 
   constructor () {}
 
@@ -41,7 +43,8 @@ class EnvUtils {
 
     const sourceEnv = {
       PREFIX: this.__PREFIX,
-      BASE_URL: this.__BASE_URL
+      BASE_URL: this.__BASE_URL,
+      PROJECT_NAME: this.__PROJECT_NAME
     }
 
     extend(true, sourceEnv,
@@ -102,6 +105,7 @@ class EnvUtils {
 
       i++
     }
+    return newObj
   }
 
   toName(value) {
